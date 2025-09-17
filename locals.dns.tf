@@ -20,7 +20,7 @@ locals {
       }
     }
   } if local.private_dns_zones_enabled[key] && try(value.private_dns_zones.auto_registration_zone_enabled, false) }
-  private_dns_zones_virtual_network_links = {
+  private_dns_zones_virtual_network_links = flatten({
     for region in var.hub_virtual_networks : region => {
       for key, value in module.hub_and_spoke_vnet.virtual_networks : key => {
         vnet_resource_id                            = value.id
@@ -28,6 +28,5 @@ locals {
         resolution_policy                           = try(region.private_dns_zones.dns_resolution_policy, null)
       }
     }
-
-  }
+  })
 }

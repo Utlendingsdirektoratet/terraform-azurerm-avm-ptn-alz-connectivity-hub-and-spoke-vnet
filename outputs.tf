@@ -72,14 +72,8 @@ output "virtual_network_resources" {
   description = "Resources of the virtual networks."
   value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value }
 }
-
-output "private_dns_zones_virtual_network_links" {
-  description = "Private DNS zones vnet links."
-  value       = { for key, value in local.private_dns_zones_virtual_network_links : key => value }
-}
-
 output "private_dns_zones" {
   description = "Private DNS zones."
-  value       = { for key, value in module.private_dns_zones.combined_private_link_private_dns_zones_replaced_with_vnets_to_link : key => value }
+  value       = { for key, value in module.private_dns_zones : key => value }
 }
 

@@ -80,6 +80,6 @@ output "private_dns_zones_virtual_network_links" {
 
 output "private_dns_zones" {
   description = "Private DNS zones."
-  value       = { for key, value in module.private_dns_zones : key => value }
+  value       = { for key, value in module.private_dns_zones.combined_private_link_private_dns_zones_replaced_with_vnets_to_link : key => value }
 }
 

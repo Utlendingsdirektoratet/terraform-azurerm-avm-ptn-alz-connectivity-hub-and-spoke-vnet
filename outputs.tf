@@ -67,3 +67,8 @@ output "virtual_network_resource_names" {
   description = "Resource names of the virtual networks."
   value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value.name }
 }
+
+output "virtual_network_resources" {
+  description = "Resources of the virtual networks."
+  value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value }
+}

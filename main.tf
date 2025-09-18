@@ -74,7 +74,7 @@ module "private_dns_zones" {
   for_each = local.private_dns_zones
 
   location                                    = each.value.location
-  parent_id                                   = each.value.parent_id
+  resource_group_name                         = each.value.resource_group_name
   enable_telemetry                            = var.enable_telemetry
   private_link_excluded_zones                 = try(each.value.private_link_excluded_zones, [])
   private_link_private_dns_zones              = try(each.value.private_link_private_dns_zones, null)

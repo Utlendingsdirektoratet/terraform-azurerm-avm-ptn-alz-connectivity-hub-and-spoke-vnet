@@ -90,8 +90,8 @@ module "private_dns_zone_auto_registration" {
   version  = "0.4.2"
   for_each = local.private_dns_zones_auto_registration
 
+  parent_id             = each.value.private_dns_zone_auto_registration.parent_id
   domain_name           = each.value.domain_name
-  resource_group_name   = each.value.resource_group_name
   enable_telemetry      = var.enable_telemetry
   tags                  = var.tags
   virtual_network_links = each.value.virtual_network_links

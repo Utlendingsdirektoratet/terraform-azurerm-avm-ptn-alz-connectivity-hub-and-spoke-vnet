@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: Conftest
         env:
           TF_IN_AUTOMATION: 1
@@ -38,7 +38,7 @@ jobs:
     outputs:
       examples: ${{ steps.getexamples.outputs.examples }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: get examples
         id: getexamples
         uses: Azure/terraform-azurerm-avm-template/.github/actions/e2e-getexamples@main
@@ -51,7 +51,7 @@ jobs:
     outputs:
       setup_exists: ${{ steps.check-setup.outputs.setup_exists }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: Check if setup.sh exists
         id: check-setup
         run: |
@@ -68,7 +68,7 @@ jobs:
     environment: test
     needs: checksetup
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: Run global setup script
         env:
           TF_IN_AUTOMATION: 1
@@ -110,7 +110,7 @@ jobs:
         example: ${{ fromJson(needs.getexamples.outputs.examples) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
 
       - name: Test example
         shell: bash
@@ -142,7 +142,7 @@ jobs:
     outputs:
       teardown_exists: ${{ steps.check-teardown.outputs.teardown_exists }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: Check if teardown.sh exists
         id: check-teardown
         run: |
@@ -159,7 +159,7 @@ jobs:
     environment: test
     needs: checkteardown
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
       - name: Run teardown script
         env:
           TF_IN_AUTOMATION: 1

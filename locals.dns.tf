@@ -10,7 +10,7 @@ locals {
   private_dns_zones_auto_registration = { for key, value in var.hub_virtual_networks : key => {
     location            = value.hub_virtual_network.location
     domain_name         = value.private_dns_zones.auto_registration_zone_name
-    resource_group_name = try(value.auto_registration_zone_resource_group_name, local.private_dns_zones[key].resource_group_name)
+    parent_id           = try(value.private_dns_zones.dns_zones.parent_id, provider::azapi::subscription_resource_id(data.azapi_client_config.current.subscription_id, local.resource_group_resource_type, [local.private_dns_zones[key].resource_group_name]))
     virtual_network_links = {
       auto_registration = {
         vnetlinkname     = "vnet-link-${key}-auto-registration"

@@ -77,3 +77,8 @@ output "private_dns_zones" {
   value       = { for key, value in module.private_dns_zones : key => value }
 }
 
+output "private_dns_zones_auto_registration" {
+  description = "Private DNS zones registration"
+  value       = { for key, value in module.private_dns_zones_auto_registration : key => value }
+}
+

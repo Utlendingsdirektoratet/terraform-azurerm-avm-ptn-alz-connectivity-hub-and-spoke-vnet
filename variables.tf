@@ -46,7 +46,6 @@ variable "hub_virtual_networks" {
       dns_zones                                  = any
       auto_registration_zone_enabled             = optional(bool, true)
       auto_registration_zone_name                = optional(string, null)
-      auto_registration_zone_resource_group_name = optional(string, null)
     }))
     private_dns_resolver = optional(object({
       enabled                                = optional(bool, true)

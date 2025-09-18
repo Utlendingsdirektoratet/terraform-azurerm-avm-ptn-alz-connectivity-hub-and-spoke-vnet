@@ -75,6 +75,11 @@ output "virtual_network_resources" {
 
 output "private_dns_zones_auto_registration" {
   description = "Private DNS zones registration"
-  value       = { for key, value in module.private_dns_zones_auto_registration : key => value }
+  value       = { for key, value in local.private_dns_zones_auto_registration : key => value }
+}
+
+output "private_dns_zones" {
+  description = "Private DNS zones module output"
+  value       = { for key, value in module.private_dns_zones : key => value }
 }
 

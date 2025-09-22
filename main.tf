@@ -5,11 +5,6 @@ module "hub_and_spoke_vnet" {
   enable_telemetry     = var.enable_telemetry
   hub_virtual_networks = local.hub_virtual_networks
   tags                 = var.tags
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "virtual_network_gateway" {
@@ -43,11 +38,6 @@ module "virtual_network_gateway" {
   depends_on = [
     module.hub_and_spoke_vnet
   ]
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "gateway_route_table" {
@@ -61,11 +51,6 @@ module "gateway_route_table" {
   bgp_route_propagation_enabled = each.value.bgp_route_propagation_enabled
   enable_telemetry              = var.enable_telemetry
   tags                          = var.tags
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "dns_resolver" {
@@ -81,11 +66,6 @@ module "dns_resolver" {
   inbound_endpoints           = each.value.inbound_endpoints
   outbound_endpoints          = try(each.value.outbound_endpoints, null)
   tags                        = var.tags
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "private_dns_zones" {
@@ -103,11 +83,6 @@ module "private_dns_zones" {
   resource_group_creation_enabled             = false
   tags                                        = var.tags
   virtual_network_resource_ids_to_link_to     = local.private_dns_zones_virtual_network_links
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "private_dns_zone_auto_registration" {
@@ -120,11 +95,6 @@ module "private_dns_zone_auto_registration" {
   enable_telemetry      = var.enable_telemetry
   tags                  = var.tags
   virtual_network_links = each.value.virtual_network_links
-
-  providers = {
-    azurerm = azurerm.connectivity
-    azapi   = azapi.connectivity
-  }
 }
 
 module "ddos_protection_plan" {

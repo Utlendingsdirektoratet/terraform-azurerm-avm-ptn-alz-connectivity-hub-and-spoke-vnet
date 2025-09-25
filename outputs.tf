@@ -68,18 +68,18 @@ output "virtual_network_resource_names" {
   value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value.name }
 }
 
-output "virtual_network_resources" {
-  description = "Resources of the virtual networks."
-  value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value }
-}
+# output "virtual_network_resources" {
+#   description = "Resources of the virtual networks."
+#   value       = { for key, value in module.hub_and_spoke_vnet.virtual_networks : key => value }
+# }
 
-output "private_dns_zones_auto_registration" {
-  description = "Private DNS zones registration"
-  value       = { for key, value in local.private_dns_zones_auto_registration : key => value }
-}
+# output "private_dns_zones_auto_registration" {
+#   description = "Private DNS zones registration"
+#   value       = { for key, value in local.private_dns_zones_auto_registration : key => value }
+# }
 
-output "private_dns_zones" {
-  description = "Private DNS zones module output"
-  value       = { for key, value in module.private_dns_zones : key => value }
-}
+# output "private_dns_zones" {
+#   description = "Private DNS zones module output"
+#   value       = { for key, value in module.private_dns_zones : key => value }
+# }
 

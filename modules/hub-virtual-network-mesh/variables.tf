@@ -304,16 +304,31 @@ A map of the hub virtual networks to create. The map key is an arbitrary value t
       - `ip_addresses` - (Optional) A set of IP addresses to allowlist for threat intelligence.
 DESCRIPTION
   nullable    = false
+}
 
-  # Validate that there is at least 1 hub network defined
-  validation {
-    condition     = length(var.hub_virtual_networks) > 0
-    error_message = "At least one hub virtual network must be defined."
-  }
+variable "retry" {
+  type = object({
+    error_message_regex  = optional(list(string), ["ReferencedResourceNotProvisioned"])
+    interval_seconds     = optional(number, 10)
+    max_interval_seconds = optional(number, 180)
+  })
+  default     = {}
+  description = "Retry configuration for the resource operations"
 }
 
 variable "tags" {
   type        = map(string)
   default     = null
   description = "(Optional) Tags of the resource."
+}
+
+variable "timeouts" {
+  type = object({
+    create = optional(string, "60m")
+    read   = optional(string, "5m")
+    update = optional(string, "60m")
+    delete = optional(string, "60m")
+  })
+  default     = {}
+  description = "Timeouts for the resource operations"
 }

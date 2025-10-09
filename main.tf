@@ -3,7 +3,9 @@ module "hub_and_spoke_vnet" {
 
   enable_telemetry     = var.enable_telemetry
   hub_virtual_networks = local.hub_virtual_networks
+  retry                = var.retry
   tags                 = var.tags
+  timeouts             = var.timeouts
 }
 
 module "virtual_network_gateway" {
@@ -11,19 +13,21 @@ module "virtual_network_gateway" {
   for_each = local.virtual_network_gateways
 
   location                                  = each.value.virtual_network_gateway.location
-  name                                      = each.value.virtual_network_gateway.name
+  name                                      = each.value.name
   parent_id                                 = each.value.parent_id
   edge_zone                                 = try(each.value.virtual_network_gateway.edge_zone, null)
   enable_telemetry                          = var.enable_telemetry
   express_route_circuits                    = try(each.value.virtual_network_gateway.express_route_circuits, null)
   express_route_remote_vnet_traffic_enabled = try(each.value.virtual_network_gateway.express_route_remote_vnet_traffic_enabled, false)
   hosted_on_behalf_of_public_ip_enabled     = each.value.virtual_network_gateway.hosted_on_behalf_of_public_ip_enabled
-  ip_configurations                         = try(each.value.virtual_network_gateway.ip_configurations, null)
+  ip_configurations                         = each.value.ip_configurations
   local_network_gateways                    = try(each.value.virtual_network_gateway.local_network_gateways, null)
+  retry                                     = var.retry
   route_table_creation_enabled              = false
-  sku                                       = each.value.virtual_network_gateway.sku
+  sku                                       = each.value.sku
   subnet_creation_enabled                   = false
   tags                                      = each.value.tags
+  timeouts                                  = var.timeouts
   type                                      = each.value.virtual_network_gateway.type
   virtual_network_gateway_subnet_id         = each.value.virtual_network_gateway_subnet_id
   vpn_active_active_enabled                 = try(each.value.virtual_network_gateway.vpn_active_active_enabled, null)
@@ -84,7 +88,7 @@ module "private_dns_zones" {
   private_link_excluded_zones                 = each.value.private_dns_settings.private_link_excluded_zones
   private_link_private_dns_zones              = each.value.private_dns_settings.private_link_private_dns_zones
   private_link_private_dns_zones_additional   = each.value.private_dns_settings.private_link_private_dns_zones_additional
-  private_link_private_dns_zones_regex_filter = each.value.private_dns_settings.private_link_private_dns_zones_regex_filter
+  private_link_private_dns_zones_regex_filter = each.value.private_link_private_dns_zones_regex_filter
   resource_group_creation_enabled             = false
   tags                                        = var.tags
   virtual_network_resource_ids_to_link_to     = local.private_dns_zones_virtual_network_links
@@ -111,7 +115,7 @@ module "ddos_protection_plan" {
   name                = local.ddos_protection_plan.name
   resource_group_name = local.ddos_protection_plan.resource_group_name
   enable_telemetry    = var.enable_telemetry
-  tags                = local.ddos_protection_plan_tags
+  tags                = local.ddos_protection_plan.tags
 }
 
 module "bastion_public_ip" {
@@ -120,7 +124,7 @@ module "bastion_public_ip" {
   for_each = local.bastion_host_public_ips
 
   location                = each.value.location
-  name                    = each.value.public_ip_settings.name
+  name                    = each.value.name
   resource_group_name     = each.value.resource_group_name
   allocation_method       = each.value.public_ip_settings.allocation_method
   ddos_protection_mode    = each.value.public_ip_settings.ddos_protection_mode
@@ -136,7 +140,7 @@ module "bastion_public_ip" {
   sku                     = each.value.public_ip_settings.sku
   sku_tier                = each.value.public_ip_settings.sku_tier
   tags                    = each.value.tags
-  zones                   = each.value.public_ip_settings.zones
+  zones                   = each.value.zones
 }
 
 module "bastion_host" {
@@ -145,7 +149,7 @@ module "bastion_host" {
   for_each = local.bastion_hosts
 
   location               = each.value.location
-  name                   = each.value.bastion_settings.name
+  name                   = each.value.name
   resource_group_name    = each.value.resource_group_name
   copy_paste_enabled     = each.value.bastion_settings.copy_paste_enabled
   enable_telemetry       = var.enable_telemetry

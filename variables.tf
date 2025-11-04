@@ -377,6 +377,7 @@ variable "hub_virtual_networks" {
           }), null)
         })))
         express_route_remote_vnet_traffic_enabled = optional(bool, false)
+        express_route_virtual_wan_traffic_enabled = optional(bool, false)
         hosted_on_behalf_of_public_ip_enabled     = optional(bool, true)
         ip_configurations = optional(map(object({
           name                          = optional(string, null)
@@ -454,7 +455,8 @@ variable "hub_virtual_networks" {
             ), null)
           }), null)
         })))
-        tags = optional(map(string))
+        tags     = optional(map(string))
+        vpn_type = optional(string, "RouteBased")
       }), {})
 
       vpn = optional(object({
@@ -935,6 +937,7 @@ The following top level attributes are supported:
         - `customer_asn` - (Optional) The customer ASN.
         - `routing_registry_name` - (Optional) The routing registry name.
   - `express_route_remote_vnet_traffic_enabled` - (Optional) Should remote VNet traffic be enabled? Default `false`.
+  - `express_route_virtual_wan_traffic_enabled` - (Optional) Should virtual WAN traffic be enabled? Default `false`.
   - `hosted_on_behalf_of_public_ip_enabled` - (Optional) Should hosted on behalf of public IP be enabled? Default `false`.
   - `ip_configurations` - (Optional) A map of IP configurations. Each configuration is an object with:
     - `name` - (Optional) The name of the IP configuration.
@@ -1003,6 +1006,7 @@ The following top level attributes are supported:
         - `local_address_prefixes` - A list of local address prefixes (required).
         - `remote_address_prefixes` - A list of remote address prefixes (required).
   - `tags` - (Optional) A map of tags to apply to the ExpressRoute gateway.
+  - `vpn_type` - (Optional) The VPN type. Possible values are `RouteBased`, `PolicyBased`.
 
 ### VPN Gateway
 

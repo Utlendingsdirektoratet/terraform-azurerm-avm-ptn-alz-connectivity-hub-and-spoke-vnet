@@ -82,6 +82,9 @@ variable "hub_and_spoke_networks_settings" {
       resource_group_name = optional(string)
       tags                = optional(map(string), null)
     }), {})
+    private_dns_zones_config = optional(object({
+      resolution_policy = optional(string)
+    }), {})
   })
   default     = {}
   description = <<DESCRIPTION

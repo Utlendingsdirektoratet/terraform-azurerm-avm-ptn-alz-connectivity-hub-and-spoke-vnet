@@ -97,11 +97,11 @@ module "private_dns_zones" {
 
 module "private_dns_zone_auto_registration" {
   source   = "Azure/avm-res-network-privatednszone/azurerm"
-  version  = "0.3.3"
+  version  = "0.4.2"
   for_each = local.private_dns_zones_auto_registration
 
+  parent_id             = each.value.resource_group_name
   domain_name           = each.value.domain_name
-  resource_group_name   = each.value.resource_group_name
   enable_telemetry      = var.enable_telemetry
   tags                  = var.tags
   virtual_network_links = each.value.virtual_network_links

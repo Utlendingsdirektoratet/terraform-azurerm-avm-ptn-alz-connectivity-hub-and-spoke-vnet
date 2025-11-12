@@ -52,7 +52,7 @@ module "virtual_network_gateway" {
 
 module "gateway_route_table" {
   source   = "Azure/avm-res-network-routetable/azurerm"
-  version  = "0.4.1"
+  version  = "0.3.1"
   for_each = local.gateway_route_table
 
   location                      = each.value.location
@@ -65,7 +65,7 @@ module "gateway_route_table" {
 
 module "dns_resolver" {
   source   = "Azure/avm-res-network-dnsresolver/azurerm"
-  version  = "0.8.0"
+  version  = "0.7.3"
   for_each = local.private_dns_resolver
 
   location                    = each.value.location
@@ -80,7 +80,7 @@ module "dns_resolver" {
 
 module "private_dns_zones" {
   source   = "Azure/avm-ptn-network-private-link-private-dns-zones/azurerm"
-  version  = "0.18.0"
+  version  = "0.15.0"
   for_each = local.private_dns_zones
 
   location                                    = each.value.location
@@ -97,11 +97,11 @@ module "private_dns_zones" {
 
 module "private_dns_zone_auto_registration" {
   source   = "Azure/avm-res-network-privatednszone/azurerm"
-  version  = "0.4.2"
+  version  = "0.3.3"
   for_each = local.private_dns_zones_auto_registration
 
-  parent_id             = each.value.parent_id
   domain_name           = each.value.domain_name
+  resource_group_name   = each.value.resource_group_name
   enable_telemetry      = var.enable_telemetry
   tags                  = var.tags
   virtual_network_links = each.value.virtual_network_links
@@ -146,7 +146,7 @@ module "bastion_public_ip" {
 
 module "bastion_host" {
   source   = "Azure/avm-res-network-bastionhost/azurerm"
-  version  = "0.8.1"
+  version  = "0.6.0"
   for_each = local.bastion_hosts
 
   location               = each.value.location

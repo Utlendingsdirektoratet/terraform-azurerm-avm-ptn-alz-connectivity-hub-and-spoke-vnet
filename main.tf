@@ -146,7 +146,7 @@ module "bastion_public_ip" {
 
 module "bastion_host" {
   source   = "Azure/avm-res-network-bastionhost/azurerm"
-  version  = "0.6.0"
+  version  = "0.8.2"
   for_each = local.bastion_hosts
 
   location               = each.value.location
